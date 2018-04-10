@@ -30,7 +30,7 @@ public class OrderConsole
 		{
 			try
 			{
-				System.out.print("Enter the number of burgers you want: ");
+				System.out.print(prompt);
 				burgerAmount = keyboard.nextInt();
 			}
 			catch (InputMismatchException e)
