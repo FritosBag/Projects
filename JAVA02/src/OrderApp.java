@@ -25,10 +25,10 @@ public class OrderApp
 				switch (selection)
 				{
 				case 1:
-					burgerTotal = burgerInput();
+					burgerTotal = OrderConsole.getInt("Enter the number of burgers you want: ");
 					break;
 				case 2:
-					//friesTotal = friesInput();
+					friesTotal = OrderConsole.getInt("Enter the number of fries you want: ");
 					break;
 				case 3:
 					//sodaTotal = sodaInput();
