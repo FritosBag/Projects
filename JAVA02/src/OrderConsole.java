@@ -3,15 +3,32 @@ import java.util.Scanner;
 
 public class OrderConsole
 {
-	public static void orderEndPrompt()
+	public static void orderEndPrompt(String prompt)
 	{
-		System.out.print("Do you want to end your order? (Enter yes or no): ");
-	}
-	
-	public static void orderEndPromptError()
-	{
-		System.out.println("-- Invalid Entry --");
-		System.out.print("Do you want to end your order? (Enter yes or no): ");
+		Scanner keyboard = new Scanner(System.in);
+		String orderEnd;
+		while(true)
+		{
+			try
+			{
+				System.out.print(prompt);
+				orderEnd = keyboard.next();
+				
+				while (!orderEnd.equalsIgnoreCase("no") && !orderEnd.equalsIgnoreCase("yes"))
+				{
+					System.out.print(prompt);
+					orderEnd = keyboard.next();
+				}
+				System.out.println();
+			}
+			catch (InputMismatchException e)
+			{
+				System.out.println("-- Invalid Entry --");
+				keyboard.nextLine();
+				continue;
+			}
+			break;
+		}
 	}
 	
 	public static void orderSelectionPrompt()
@@ -25,13 +42,20 @@ public class OrderConsole
 	public static int getInt(String prompt)
 	{
 		Scanner keyboard = new Scanner(System.in);
-		int burgerAmount;
+		int Integer;
 		while(true)
 		{
 			try
 			{
 				System.out.print(prompt);
-				burgerAmount = keyboard.nextInt();
+				Integer = keyboard.nextInt();
+				
+				while (Integer > 5)
+				{
+					System.out.println("-- Invalid Entry --");
+					System.out.print(prompt);
+					Integer = keyboard.nextInt();
+				}
 			}
 			catch (InputMismatchException e)
 			{
@@ -41,51 +65,6 @@ public class OrderConsole
 			}
 			break;
 		}
-		return burgerAmount;
-	}
-	
-	/* public static void burgerAmountPrompt()
-	{
-		System.out.print("Enter the number of burgers you want: ");
-	}
-	
-	public static void burgerAmountPromptError()
-	{
-		System.out.println("-- Invalid Entry --");
-		System.out.print("Enter the number of burgers you want: ");
-	}
-	
-	public static void friesAmountPrompt()
-	{
-		System.out.print("Enter the number of fries you want: ");
-	}
-	
-	public static void friesAmountPromptError()
-	{
-		System.out.println("-- Invalid Entry --");
-		System.out.print("Enter the number of fries you want: ");
-	}
-	
-	public static void sodaAmountPrompt()
-	{
-		System.out.print("Enter the number of sodas you want: ");
-	}
-	
-	public static void sodaAmountPromptError()
-	{
-		System.out.println("-- Invalid Entry --");
-		System.out.print("Enter the number of sodas you want: ");
-	}
-	
-	public static void programEndPrompt()
-	{
-		System.out.print("Do you want to end program? (Enter no to process a new order): ");
-	}
-	
-	public static void programEndPromptError()
-	{
-		System.out.println("-- Invalid Entry --");
-		System.out.print("Do you want to end program? (Enter no to process a new order): ");
-	}
-	*/
+		return Integer;
+	}	
 }

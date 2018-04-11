@@ -12,6 +12,8 @@ public class OrderApp
 {
 	public static void main(String[] args)
 	{	
+		Order Order = new Order();
+		
 		String programEnd;
 		String orderEnd;
 		int selection;
@@ -26,18 +28,21 @@ public class OrderApp
 				{
 				case 1:
 					burgerTotal = OrderConsole.getInt("Enter the number of burgers you want: ");
+					Order.getBurgerTotal();
 					break;
 				case 2:
 					friesTotal = OrderConsole.getInt("Enter the number of fries you want: ");
+					Order.getFriesTotal();
 					break;
 				case 3:
-					//sodaTotal = sodaInput();
+					sodaTotal = OrderConsole.getInt("Enter the number of sodas you want: ");
+					Order.getSodaTotal();
 					break;
 				}
 				orderEnd = orderLoop();
 			}
 			while (orderEnd.equalsIgnoreCase("no"));
-			orderCalculate(burgerTotal, friesTotal, sodaTotal);
+			orderCalculate();
 			programEnd = programEnd();
 		}
 		while (programEnd.equalsIgnoreCase("no"));
@@ -48,16 +53,20 @@ public class OrderApp
 		Scanner keyboard = new Scanner(System.in);
 		String orderEnd = "no";
 		
-		OrderConsole.orderEndPrompt();
+		System.out.print("Do you want to end your order? (Enter yes or no): ");
 		orderEnd = keyboard.next();
 		
 		while (!orderEnd.equalsIgnoreCase("no") && !orderEnd.equalsIgnoreCase("yes"))
 		{
-			OrderConsole.orderEndPromptError();
+			System.out.println("-- Invalid Entry --");
+			System.out.print("Do you want to end your order? (Enter yes or no): ");
 			orderEnd = keyboard.next();
 		}
 		System.out.println();
 		return orderEnd;
+		
+		//OrderConsole.orderEndPrompt("Do you want to end your order? (Enter yes or no): ");
+		//return orderEnd;
 	}
 	
 	public static int orderInput()
@@ -94,85 +103,36 @@ public class OrderApp
 	public static double burgerInput()
 	{
 		Order Order = new Order();
-		Scanner keyboard = new Scanner(System.in);
 		
-		OrderConsole.getInt("Enter the number of burgers you want: ");
-		
-		while (Order.getBurgerAmount() > 5)
-		{
-			System.out.println("-- Invalid Entry --");
-			System.out.print("Enter the number of burgers you want: ");
-			keyboard.nextInt();
-		}
-		
-		return Order.burgerCalc(Order.getBurgerAmount(), Order.getBurgerTotal());
+		Order.burgerCalc(Order.getBurgerAmount(), Order.getBurgerTotal());
+		return Order.getBurgerTotal();
 	}
 	
-	/*public static double friesInput()
+	public static double friesInput()
 	{
-		Scanner keyboard = new Scanner(System.in);
-		int friesAmount;
-		while(true)
-		{
-			try
-			{
-				OrderConsole.friesAmountPrompt();
-				friesAmount = keyboard.nextInt();
-				
-				while (friesAmount > 5)
-				{
-					OrderConsole.friesAmountPromptError();
-					friesAmount = keyboard.nextInt();
-				}
-			}
-			catch (InputMismatchException e)
-			{
-				System.out.println("-- Invalid Entry --");
-				keyboard.nextLine();
-				continue;
-			}
-			break;
-		}
-		double friesTotal = friesAmount * .79;
-		return friesTotal;
+		Order Order = new Order();
+		
+		Order.friesCalc(Order.getFriesAmount(), Order.getFriesTotal());
+		return Order.getFriesTotal();
 	}
 	
 	public static double sodaInput()
 	{
-		Scanner keyboard = new Scanner(System.in);
-		int sodaAmount;
-		while(true)
-		{
-			try
-			{
-				OrderConsole.sodaAmountPrompt();
-				sodaAmount = keyboard.nextInt();
-				
-				while (sodaAmount > 5)
-				{
-					OrderConsole.sodaAmountPromptError();
-					sodaAmount = keyboard.nextInt();
-				}
-			}
-			catch (InputMismatchException e)
-			{
-				System.out.println("-- Invalid Entry --");
-				keyboard.nextLine();
-				continue;
-			}
-			break;
-		}
-		double sodaTotal = sodaAmount * 1.09;
-		return sodaTotal;
+		Order Order = new Order();
+
+		Order.sodaCalc(Order.getSodaAmount(), Order.getSodaTotal());
+		return Order.getSodaTotal();
 	}
-	*/
-	public static void orderCalculate(double burgerTotal, double friesTotal, double sodaTotal)
+	
+	public static void orderCalculate()
 	{
+		Order Order = new Order();
+		
 		double subTotal;
 		double grandTotal;
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		
-		subTotal = burgerTotal + friesTotal + sodaTotal;
+		subTotal = Order.getBurgerTotal() + Order.getFriesTotal() + Order.getSodaTotal();
 		grandTotal = subTotal * 1.06;
 		System.out.println("The total price is " + currency.format(grandTotal));
 	}

@@ -37,6 +37,24 @@ public class Order
 		this.sodaTotal = sodaTotal;
 	}
 	
+	public double burgerCalc(int burgerAmount, double burgerTotal)
+	{
+		burgerTotal = burgerAmount * burgerPrice;
+		return burgerTotal;
+	}
+	
+	public double friesCalc(int friesAmount, double friesTotal)
+	{
+		friesTotal = friesAmount * friesPrice;
+		return friesTotal;
+	}
+	
+	public double sodaCalc(int sodaAmount, double sodaTotal)
+	{
+		sodaTotal = sodaAmount * sodaPrice;
+		return sodaTotal;
+	}
+	
 	public int getBurgerAmount()
 	{
 		return burgerAmount;
@@ -95,23 +113,5 @@ public class Order
 	public void setSodaTotal(double sodaTotal)
 	{
 		this.sodaTotal = sodaTotal;
-	}
-	
-	public double burgerCalc(int burgerAmount, double burgerTotal)
-	{
-		burgerTotal = burgerAmount * burgerPrice;
-		return burgerTotal;
-	}
-	
-	public double friesCalc(int friesAmount, double friesTotal)
-	{
-		friesTotal = friesAmount * friesPrice;
-		return friesTotal;
-	}
-	
-	public double sodaCalc(int sodaAmount, double sodaTotal)
-	{
-		sodaTotal = sodaAmount * sodaPrice;
-		return sodaTotal;
 	}
 }
