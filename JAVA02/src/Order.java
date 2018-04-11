@@ -1,50 +1,44 @@
+import java.text.NumberFormat;
+
 public class Order
 {
 	private int burgerAmount;
 	private int friesAmount;
 	private int sodaAmount;
-	private static double burgerPrice;
-	private static double friesPrice;
-	private static double sodaPrice;
-	private double burgerTotal;
-	private double friesTotal;
-	private double sodaTotal;
+	private static final double BURGER_PRICE = .99;
 	
 	public Order()
 	{
 		burgerAmount = 0;
 		friesAmount = 0;
 		sodaAmount = 0;
-		burgerPrice = 0;
-		friesPrice = 0;
-		sodaPrice = 0;
-		burgerTotal = 0;
-		friesTotal = 0;
-		sodaTotal = 0;
 	}
 	
-	public Order(int burgerAmount, int friesAmount, int sodaAmount, 
-				double burgerTotal, double friesTotal, double sodaTotal)
+	public Order(int burgerAmount, int friesAmount, int sodaAmount)
 	{
 		this.burgerAmount = burgerAmount;
 		this.friesAmount = friesAmount;
 		this.sodaAmount = sodaAmount;
-		burgerPrice = .99;
-		friesPrice = .79;
-		sodaPrice = 1.09;
-		this.burgerTotal = burgerTotal;
-		this.friesTotal = friesTotal;
-		this.sodaTotal = sodaTotal;
 	}
 	
 	public double burgerCalc(int burgerAmount, double burgerTotal)
 	{
-		burgerTotal = burgerAmount * burgerPrice;
-		return burgerTotal;
+		double burgerCost;
+		
+		burgerCost = burgerAmount * BURGER_PRICE;
+		return burgerCost;
 	}
 	
+	public String burgerCalcFormatted()
+	{
+		NumberFormat number = NumberFormat.getCurrencyInstance();
+		return currency.format(burgerCalc());
+		
+	}
 	public double friesCalc(int friesAmount, double friesTotal)
 	{
+		double friesCost;
+		
 		friesTotal = friesAmount * friesPrice;
 		return friesTotal;
 	}
