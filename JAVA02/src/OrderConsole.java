@@ -3,6 +3,35 @@ import java.util.Scanner;
 
 public class OrderConsole
 {
+	public static int getInt(String prompt)
+	{
+		Scanner keyboard = new Scanner(System.in);
+		int Integer;
+		while(true)
+		{
+			try
+			{
+				System.out.print(prompt);
+				Integer = keyboard.nextInt();
+				
+				while (Integer > 5 || Integer < 0)
+				{
+					System.out.println("-- Invalid Entry --");
+					System.out.print(prompt);
+					Integer = keyboard.nextInt();
+				}
+			}
+			catch (InputMismatchException e)
+			{
+				System.out.println("-- Invalid Entry --");
+				keyboard.nextLine();
+				continue;
+			}
+			break;
+		}
+		return Integer;
+	}
+
 	public static void orderEndPrompt(String prompt)
 	{
 		Scanner keyboard = new Scanner(System.in);
@@ -31,30 +60,26 @@ public class OrderConsole
 		}
 	}
 	
-	public static void orderSelectionPrompt()
-	{
-		System.out.println("Enter 1 for Yum Yum Burger");
-		System.out.println("Enter 2 for Grease Yum Fries");
-		System.out.println("Enter 3 for Soda Yum");
-		System.out.print("Enter now -> ");
-	}
-
-	public static int getInt(String prompt)
+	public static void orderSelectionPrompt(String prompt)
 	{
 		Scanner keyboard = new Scanner(System.in);
-		int Integer;
+		int selection;
 		while(true)
 		{
 			try
 			{
 				System.out.print(prompt);
-				Integer = keyboard.nextInt();
+				selection = keyboard.nextInt();
 				
-				while (Integer > 5)
+				if (selection != 1 && selection != 2 && selection != 3)
 				{
 					System.out.println("-- Invalid Entry --");
-					System.out.print(prompt);
-					Integer = keyboard.nextInt();
+					keyboard.nextLine();
+					continue;
+				}
+				else
+				{
+					break;
 				}
 			}
 			catch (InputMismatchException e)
@@ -63,8 +88,6 @@ public class OrderConsole
 				keyboard.nextLine();
 				continue;
 			}
-			break;
 		}
-		return Integer;
-	}	
+	}
 }

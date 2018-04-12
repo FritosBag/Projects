@@ -17,7 +17,7 @@ public class OrderApp
 		String programEnd;
 		String orderEnd;
 		int selection;
-		double burgerTotal = 0, friesTotal = 0, sodaTotal = 0;
+		double burgerTotal, friesTotal, sodaTotal;
 		
 		do
 		{
@@ -28,15 +28,15 @@ public class OrderApp
 				{
 				case 1:
 					burgerTotal = OrderConsole.getInt("Enter the number of burgers you want: ");
-					Order.getBurgerTotal();
+					Order.burgerCalc();
 					break;
 				case 2:
 					friesTotal = OrderConsole.getInt("Enter the number of fries you want: ");
-					Order.getFriesTotal();
+					Order.friesCalc();
 					break;
 				case 3:
 					sodaTotal = OrderConsole.getInt("Enter the number of sodas you want: ");
-					Order.getSodaTotal();
+					Order.sodaCalc();
 					break;
 				}
 				orderEnd = orderLoop();
@@ -64,67 +64,18 @@ public class OrderApp
 		}
 		System.out.println();
 		return orderEnd;
-		
-		//OrderConsole.orderEndPrompt("Do you want to end your order? (Enter yes or no): ");
-		//return orderEnd;
 	}
 	
 	public static int orderInput()
 	{
-		Scanner keyboard = new Scanner(System.in);
-		int selection;
-		while(true)
-		{
-			try
-			{
-				OrderConsole.orderSelectionPrompt();
-				selection = keyboard.nextInt();
-				if (selection != 1 && selection != 2 && selection != 3)
-				{
-					System.out.println("-- Invalid Entry --");
-					keyboard.nextLine();
-					continue;
-				}
-				else
-				{
-					break;
-				}
-			}
-			catch (InputMismatchException e)
-			{
-				System.out.println("-- Invalid Entry --");
-				keyboard.nextLine();
-				continue;
-			}
-		}
+		int selection = 0;
+		
+		OrderConsole.orderSelectionPrompt("Enter 1 for Yum Yum Burger | Enter 2 for Grease Yum Fries | "
+										+ "Enter 3 for Soda Yum | Enter now");
 		return selection;
 	}
 	
-	public static double burgerInput()
-	{
-		Order Order = new Order();
-		
-		Order.burgerCalc(Order.getBurgerAmount(), Order.getBurgerTotal());
-		return Order.getBurgerTotal();
-	}
-	
-	public static double friesInput()
-	{
-		Order Order = new Order();
-		
-		Order.friesCalc(Order.getFriesAmount(), Order.getFriesTotal());
-		return Order.getFriesTotal();
-	}
-	
-	public static double sodaInput()
-	{
-		Order Order = new Order();
-
-		Order.sodaCalc(Order.getSodaAmount(), Order.getSodaTotal());
-		return Order.getSodaTotal();
-	}
-	
-	public static void orderCalculate()
+	public static void orderCalculate(int burgerTotal, int friesTotal, int sodaTotal)
 	{
 		Order Order = new Order();
 		
@@ -132,7 +83,7 @@ public class OrderApp
 		double grandTotal;
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		
-		subTotal = Order.getBurgerTotal() + Order.getFriesTotal() + Order.getSodaTotal();
+		subTotal = burgerTotal + friesTotal + sodaTotal;
 		grandTotal = subTotal * 1.06;
 		System.out.println("The total price is " + currency.format(grandTotal));
 	}
