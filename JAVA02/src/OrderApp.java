@@ -4,7 +4,6 @@ Date Completed: -
 Purpose: Ordering system for the use of a fastfood restaurant -- Revised with classes
 */
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.text.NumberFormat;
 
@@ -12,12 +11,10 @@ public class OrderApp
 {
 	public static void main(String[] args)
 	{	
-		Order Order = new Order();
-		
 		String programEnd;
 		String orderEnd;
 		int selection;
-		double burgerTotal, friesTotal, sodaTotal;
+		int burgerTotal = 0, friesTotal = 0, sodaTotal= 0;
 		
 		do
 		{
@@ -28,21 +25,19 @@ public class OrderApp
 				{
 				case 1:
 					burgerTotal = OrderConsole.getInt("Enter the number of burgers you want: ");
-					Order.burgerCalc();
 					break;
 				case 2:
 					friesTotal = OrderConsole.getInt("Enter the number of fries you want: ");
-					Order.friesCalc();
 					break;
 				case 3:
 					sodaTotal = OrderConsole.getInt("Enter the number of sodas you want: ");
-					Order.sodaCalc();
 					break;
 				}
 				orderEnd = orderLoop();
 			}
 			while (orderEnd.equalsIgnoreCase("no"));
-			orderCalculate();
+			Order order = new Order(burgerTotal, friesTotal, sodaTotal);
+			orderCalculate(order);
 			programEnd = programEnd();
 		}
 		while (programEnd.equalsIgnoreCase("no"));
@@ -71,19 +66,18 @@ public class OrderApp
 		int selection = 0;
 		
 		OrderConsole.orderSelectionPrompt("Enter 1 for Yum Yum Burger | Enter 2 for Grease Yum Fries | "
-										+ "Enter 3 for Soda Yum | Enter now");
+										+ "Enter 3 for Soda Yum | Enter now: ");
 		return selection;
 	}
 	
-	public static void orderCalculate(int burgerTotal, int friesTotal, int sodaTotal)
-	{
-		Order Order = new Order();
-		
+	public static void orderCalculate(Order order)
+	{	
 		double subTotal;
 		double grandTotal;
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		
-		subTotal = burgerTotal + friesTotal + sodaTotal;
+		subTotal = order.burgerCalc(order.getBurgerAmount()) + order.friesCalc(order.getFriesAmount())
+									+ order.sodaCalc(order.getSodaAmount());
 		grandTotal = subTotal * 1.06;
 		System.out.println("The total price is " + currency.format(grandTotal));
 	}

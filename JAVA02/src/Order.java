@@ -1,5 +1,4 @@
 import java.text.NumberFormat;
-import java.util.Currency;
 
 public class Order
 {
@@ -24,7 +23,7 @@ public class Order
 		this.sodaAmount = sodaAmount;
 	}
 	
-	public double burgerCalc(int burgerAmount, double burgerTotal)
+	public double burgerCalc(int burgerAmount)
 	{
 		double burgerCost;
 		
@@ -35,35 +34,35 @@ public class Order
 	public String burgerCalcFormatted()
 	{
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
-		return currency.format(burgerCalc());
+		return currency.format(burgerCalc(burgerAmount));
 		
 	}
-	public double friesCalc(int friesAmount, double friesTotal)
+	public double friesCalc(int friesAmount)
 	{
 		double friesCost;
 		
 		friesCost = friesAmount * FRIES_PRICE;
-		return friesTotal;
+		return friesCost;
 	}
 	
 	public String friesCalcFormatted()
 	{
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
-		return currency.format(friesCalc());
+		return currency.format(friesCalc(friesAmount));
 	}
 	
-	public double sodaCalc(int sodaAmount, double sodaTotal)
+	public double sodaCalc(int sodaAmount)
 	{
 		double sodaCost;
 		
 		sodaCost = sodaAmount * SODA_PRICE;
-		return sodaTotal;
+		return sodaCost;
 	}
 	
 	public String sodaCalcFormatted()
 	{
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
-		return currency.format(sodaCalc());
+		return currency.format(sodaCalc(sodaAmount));
 	}
 	
 	public int getBurgerAmount()
