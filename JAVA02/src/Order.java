@@ -1,4 +1,5 @@
 import java.text.NumberFormat;
+import java.util.Currency;
 
 public class Order
 {
@@ -6,6 +7,8 @@ public class Order
 	private int friesAmount;
 	private int sodaAmount;
 	private static final double BURGER_PRICE = .99;
+	private static final double FRIES_PRICE = .79;
+	private static final double SODA_PRICE = 1.09;
 	
 	public Order()
 	{
@@ -31,7 +34,7 @@ public class Order
 	
 	public String burgerCalcFormatted()
 	{
-		NumberFormat number = NumberFormat.getCurrencyInstance();
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		return currency.format(burgerCalc());
 		
 	}
@@ -39,14 +42,28 @@ public class Order
 	{
 		double friesCost;
 		
-		friesTotal = friesAmount * friesPrice;
+		friesCost = friesAmount * FRIES_PRICE;
 		return friesTotal;
+	}
+	
+	public String friesCalcFormatted()
+	{
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		return currency.format(friesCalc());
 	}
 	
 	public double sodaCalc(int sodaAmount, double sodaTotal)
 	{
-		sodaTotal = sodaAmount * sodaPrice;
+		double sodaCost;
+		
+		sodaCost = sodaAmount * SODA_PRICE;
 		return sodaTotal;
+	}
+	
+	public String sodaCalcFormatted()
+	{
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		return currency.format(sodaCalc());
 	}
 	
 	public int getBurgerAmount()
@@ -77,35 +94,5 @@ public class Order
 	public void setSodaAmount(int sodaAmount)
 	{
 		this.sodaAmount = sodaAmount;
-	}
-	
-	public double getBurgerTotal()
-	{
-		return burgerTotal;
-	}
-	
-	public void setBurgerTotal(double burgerTotal)
-	{
-		this.burgerTotal = burgerTotal;
-	}
-	
-	public double getFriesTotal()
-	{
-		return friesTotal;
-	}
-	
-	public void setFriesTotal(double friesTotal)
-	{
-		this.friesTotal = friesTotal;
-	}
-	
-	public double getSodaTotal()
-	{
-		return sodaTotal;
-	}
-	
-	public void setSodaTotal(double sodaTotal)
-	{
-		this.sodaTotal = sodaTotal;
 	}
 }
