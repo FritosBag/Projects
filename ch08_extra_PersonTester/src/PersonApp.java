@@ -30,7 +30,9 @@ public class PersonApp
 				emailAddress = Console.getString("Enter email address: ");
 				customerNumber = Console.getString("Customer number: ");
 				
-				// to string
+				System.out.println("Name: " + super.toString());
+				System.out.println("Email: " + super.toString());
+				System.out.println("Customer number: " + super.toString());
 				
 			}
 			else if (choicePerson.equalsIgnoreCase("e"))
@@ -41,10 +43,12 @@ public class PersonApp
 				emailAddress = Console.getString("Enter email address: ");
 				socialNumber = Console.getString("Social security number: ");
 				
-				// to string
+				System.out.println("Name: " + super.toString());
+				System.out.println("Email: " + super.toString());
+				System.out.println("Social security number: " + super.toString());
 			}
 			
-			// choice counter from person class
+			System.out.println("Total Entries: " + Person.getCount() + "\n");
 			
             choiceContinue = Console.getString("Continue? (y/n): ");
             System.out.println();
