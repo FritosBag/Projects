@@ -52,8 +52,7 @@ public abstract class Person
 	@Override
 	public String toString()
 	{
-		return "a";
-		// See pg. 273
+		return firstName;
 	}
 	
 	public static int getCount()
