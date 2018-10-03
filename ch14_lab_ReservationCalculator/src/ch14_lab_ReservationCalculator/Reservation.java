@@ -59,21 +59,23 @@ public class Reservation
 	
 	public int getNumberOfNights()
 	{
-		int nightNumber = 0;
-		return nightNumber; //temp | calculate
+		int x = 0;
+		return x; //temp | calculate
+							//difference between the two formatted dates
 	}
 	
 	public String getPricePerNightFormatted()
 	{
-		//cast NIGHTLY_RATE to String then format?
-		String x = ""; //temp variable
-		return x;
+		int nightlyRate = Integer.valueOf(NIGHTLY_RATE);
+		nightlyRate = Integer.parseInt(nightlyRate); 
+		String nightlyRateFormat = NumberFormat.getCurrencyInstance().format(nightlyRate);
+		return nightlyRateFormat;
 	}
 	
 	public double getTotalPrice()
 	{
-		double totalPrice = 0;
-		return totalPrice; //temp | calculate
+		double totalPrice = getNumberOfNights() * NIGHTLY_RATE;
+		return totalPrice;
 	}
 	
 	public String getTotalPriceFormatted()

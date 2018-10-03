@@ -19,13 +19,15 @@ public class Application
 		int departureDay = 0;
 		int departureYear = 0;
 		Boolean inputCheck = false;
-		String programEnd = null;
+		String programEnd = "";
+		String arrivalDateFormatted;
+		String departureDateFormatted;
 		
-		//do
-		//{
+		do
+		{
 			System.out.println("Reservation Calculator");
 			System.out.println();
-			do
+			do //arrival month 
 			{
 				try
 				{
@@ -51,7 +53,7 @@ public class Application
 			while (inputCheck != true);
 			inputCheck = false;
 			
-			do
+			do //arrival day
 			{
 				try
 				{
@@ -77,7 +79,7 @@ public class Application
 			while (inputCheck != true);
 			inputCheck = false;
 			
-			do
+			do //arrival year
 			{
 				try
 				{
@@ -104,7 +106,7 @@ public class Application
 			inputCheck = false;
 			System.out.println();
 			
-			do
+			do //departure month
 			{
 				try
 				{
@@ -130,7 +132,7 @@ public class Application
 			while (inputCheck != true);
 			inputCheck = false;
 			
-			do
+			do //departure day
 			{
 				try
 				{
@@ -156,7 +158,7 @@ public class Application
 			while (inputCheck != true);
 			inputCheck = false;
 			
-			do
+			do //departure year
 			{
 				try
 				{
@@ -180,35 +182,42 @@ public class Application
 				}
 			}
 			while (inputCheck != true);
+			inputCheck = false;
 			
-			//merge arrival/departure integers into a full date object
-				//set arrival/departure dates to Reservation.getArrivalDate()
-				//format using Reservation.getArrivalDateFormatted()
+			LocalDate arrivalDate = java.time.LocalDate.of(arrivalYear, arrivalMonth, arrivalDay);
+			arrivalDate = Reservation.getArrivalDate();
+			arrivalDateFormatted = Reservation.getArrivalDateFormatted();
+			
+			LocalDate departureDate = java.time.LocalDate.of(departureYear, departureMonth, departureDay);
+			departureDate = Reservation.getDepartureDate();
+			departureDateFormatted = Reservation.getDepartureDateFormatted();
 			
 			//arrival date: formatted arrival
 			//departure date: formatted departure
 			//price: price constant
 				//use getPricePerNightFormatted
 			
+			System.out.println();
+			System.out.println("Arrival Date: " + arrivalDateFormatted);
+			System.out.println("Departure Date: " + departureDateFormatted);
+			System.out.println("Price: " + Reservation.getPricePerNightFormatted());
+			
 			//total price: price constant * days between arrival and departure date
 				//use Reservation.getNumberOfNights() calculation
-				//format total 
+				//format total
 			
-			
-			
-/*
 			do
 			{
 				try
 				{
-					System.out.print("Do you want to end program? (y or n)");
-					programEnd = sc.nextLine();
+					System.out.print("Do you want to end program? (y or n) ");
+					programEnd = sc.next();
 					
-					while (!programEnd.equalsIgnoreCase("y") || !programEnd.equalsIgnoreCase("n"))
+					while (!programEnd.equalsIgnoreCase("y") && !programEnd.equalsIgnoreCase("n"))
 					{
 						System.out.println();
 						System.out.println("Error: Enter y or n");
-						programEnd = sc.nextLine();
+						programEnd = sc.next();
 					}
 					inputCheck = true;
 				}
@@ -216,14 +225,13 @@ public class Application
 				{
 					System.out.println();
 					System.out.println("Error: Enter y or n");
-					sc.nextLine();
+					sc.next();
 					continue;
 				}
 			}
 			while (inputCheck != true);
-*/ //do later
-		//}
-		//while (programEnd.equalsIgnoreCase("n"));
+		}
+		while (programEnd.equalsIgnoreCase("n"));
 			
 		System.out.println();
 		System.out.println("Bye!");
