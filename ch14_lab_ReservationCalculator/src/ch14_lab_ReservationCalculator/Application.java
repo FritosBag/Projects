@@ -9,7 +9,7 @@ public class Application
 	public static void main(String[] args)
 	{
 		Scanner sc = new Scanner(System.in);
-		Reservation Reservation = new Reservation();
+		Reservation reservation = new Reservation();
 		LocalDate LocalDate = java.time.LocalDate.now();
 		
 		int arrivalMonth = 0;
@@ -20,13 +20,12 @@ public class Application
 		int departureYear = 0;
 		Boolean inputCheck = false;
 		String programEnd = "";
-		String arrivalDateFormatted;
-		String departureDateFormatted;
 		
 		do
 		{
 			System.out.println("Reservation Calculator");
 			System.out.println();
+			
 			do //arrival month 
 			{
 				try
@@ -185,55 +184,57 @@ public class Application
 			inputCheck = false;
 			
 			LocalDate arrivalDate = java.time.LocalDate.of(arrivalYear, arrivalMonth, arrivalDay);
-			arrivalDate = Reservation.getArrivalDate();
-			arrivalDateFormatted = Reservation.getArrivalDateFormatted();
+			reservation.setArrivalDate(arrivalDate);
 			
 			LocalDate departureDate = java.time.LocalDate.of(departureYear, departureMonth, departureDay);
-			departureDate = Reservation.getDepartureDate();
-			departureDateFormatted = Reservation.getDepartureDateFormatted();
+			reservation.setDepartureDate(departureDate);
 			
-			//arrival date: formatted arrival
-			//departure date: formatted departure
-			//price: price constant
-				//use getPricePerNightFormatted
-			
-			System.out.println();
-			System.out.println("Arrival Date: " + arrivalDateFormatted);
-			System.out.println("Departure Date: " + departureDateFormatted);
-			System.out.println("Price: " + Reservation.getPricePerNightFormatted());
-			
-			//total price: price constant * days between arrival and departure date
-				//use Reservation.getNumberOfNights() calculation
-				//format total
-			
-			do
+			if (departureDate.isBefore(arrivalDate))
 			{
-				try
+				System.out.println();
+				System.out.println("Error: departure is before arrival, the program will now restart");
+				programEnd = "y";
+				System.out.println();
+			}
+			else
+			{
+				System.out.println();
+				System.out.println("Arrival Date: " + reservation.getArrivalDateFormatted());
+				System.out.println("Departure Date: " + reservation.getDepartureDateFormatted());
+				System.out.println("Price: " + reservation.getPricePerNightFormatted() + " per night");
+				System.out.println("Total price: " + reservation.getTotalPriceFormatted() + 
+								   " for " + reservation.getDaysBetweenString() + " nights");
+				System.out.println();
+				
+				do
 				{
-					System.out.print("Do you want to end program? (y or n) ");
-					programEnd = sc.next();
-					
-					while (!programEnd.equalsIgnoreCase("y") && !programEnd.equalsIgnoreCase("n"))
+					try
+					{
+						System.out.print("Continue? (y/n) ");
+						programEnd = sc.next();
+						System.out.println();
+						
+						while (!programEnd.equalsIgnoreCase("y") && !programEnd.equalsIgnoreCase("n"))
+						{
+							System.out.println();
+							System.out.println("Error: Enter y/n");
+							programEnd = sc.next();
+						}
+						inputCheck = true;
+					}
+					catch (InputMismatchException e)
 					{
 						System.out.println();
-						System.out.println("Error: Enter y or n");
-						programEnd = sc.next();
+						System.out.println("Error: Enter y/n");
+						sc.next();
+						continue;
 					}
-					inputCheck = true;
 				}
-				catch (InputMismatchException e)
-				{
-					System.out.println();
-					System.out.println("Error: Enter y or n");
-					sc.next();
-					continue;
-				}
+				while (inputCheck != true);
 			}
-			while (inputCheck != true);
 		}
-		while (programEnd.equalsIgnoreCase("n"));
+		while (programEnd.equalsIgnoreCase("y"));
 			
-		System.out.println();
 		System.out.println("Bye!");
 	}
 }
