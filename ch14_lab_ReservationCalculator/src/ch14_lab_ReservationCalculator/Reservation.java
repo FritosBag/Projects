@@ -4,23 +4,27 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 
 public class Reservation
 {	
 	private LocalDate arrivalDate;
 	private LocalDate departureDate;
+	private String daysBetweenString;
 	private static final int NIGHTLY_RATE = 145;
 	
 	Reservation()
 	{
 		arrivalDate = null;
 		departureDate = null;
+		daysBetweenString = null;
 	}
 	
-	Reservation(LocalDate arrivalDate, LocalDate departureDate)
+	Reservation(LocalDate arrivalDate, LocalDate departureDate, String daysBetweenString)
 	{
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
+		this.daysBetweenString = daysBetweenString;
 	}
 	
 	public LocalDate getArrivalDate()
@@ -30,9 +34,9 @@ public class Reservation
 	
 	public String getArrivalDateFormatted()
 	{
-		DateTimeFormatter arrivalDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
-		String arrivalDateFormatted = String.valueOf(arrivalDate);
-		return arrivalDateFormatted;
+		DateTimeFormatter atf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+		
+		return atf.format(arrivalDate);
 	}
 	
 	public void setArrivalDate(LocalDate arrivalDate)
@@ -47,9 +51,9 @@ public class Reservation
 	
 	public String getDepartureDateFormatted()
 	{
-		DateTimeFormatter departureDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
-		String departureDateFormatted = String.valueOf(departureDate);
-		return departureDateFormatted;
+		DateTimeFormatter atf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+		
+		return atf.format(departureDate);
 	}
 
 	public void setDepartureDate(LocalDate departureDate)
@@ -57,32 +61,45 @@ public class Reservation
 		this.departureDate = departureDate;
 	}
 	
+	public String getDaysBetweenString()
+	{
+		return daysBetweenString;
+	}
+
+	public void setDaysBetweenString(String daysBetweenString)
+	{
+		this.daysBetweenString = daysBetweenString;
+	}
+	
 	public int getNumberOfNights()
 	{
-		int x = 0;
-		return x; //temp | calculate
-							//difference between the two formatted dates
+		long daysBetween = ChronoUnit.DAYS.between(arrivalDate, departureDate);
+		String daysBetweenString = String.valueOf(daysBetween);
+		
+		int nightNumber = Integer.parseInt(daysBetweenString);
+		setDaysBetweenString(daysBetweenString);
+		
+		return nightNumber;		
 	}
 	
 	public String getPricePerNightFormatted()
 	{
-		int nightlyRate = Integer.valueOf(NIGHTLY_RATE);
-		nightlyRate = Integer.parseInt(nightlyRate); 
-		String nightlyRateFormat = NumberFormat.getCurrencyInstance().format(nightlyRate);
+		String nightlyRateFormat = NumberFormat.getCurrencyInstance().format(NIGHTLY_RATE);
+		
 		return nightlyRateFormat;
 	}
 	
 	public double getTotalPrice()
 	{
 		double totalPrice = getNumberOfNights() * NIGHTLY_RATE;
+		
 		return totalPrice;
 	}
 	
 	public String getTotalPriceFormatted()
 	{
-		String totalPriceFormatted = String.valueOf(getTotalPrice());
-		NumberFormat.getCurrencyInstance().format(totalPriceFormatted);
+		NumberFormat.getCurrencyInstance().format(getTotalPrice());
 		
-		return totalPriceFormatted;
+		return NumberFormat.getCurrencyInstance().format(getTotalPrice());
 	}
 }
