@@ -8,58 +8,66 @@ public class FileCleanerApp
 	public static void main(String[] args)
 	{							
 		Path prospectPath;
+		File prospectFile;
 		Path cleanProspectPath;
-		File cleanProspectFile;	
-		char[] alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-		char[] alphabetLower = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		File cleanProspectFile;
+		String comma = ",";
+		
+		String alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String alphabetLower = "abcdefghijklmnopqrstuvwxyz";
 		
 		try
 		{
 			prospectPath = Paths.get("prospects.csv");
-			cleanProspectPath = Paths.get("prospects_clean.csv");
-			cleanProspectFile = cleanProspectPath.toFile();
+			prospectFile = prospectPath.toFile();
 			
-			if (cleanProspectFile.exists())
-			{
-				Files.delete(cleanProspectPath); //temp
-				throw new IOException();
-			}
-			else if (Files.notExists(prospectPath))
+			if (Files.notExists(prospectPath))
 			{
 				throw new FileNotFoundException();
 			}
-			
-			OutputStream outStream = new FileOutputStream(cleanProspectFile);
-			Files.copy(prospectPath, outStream);
-			outStream.close();
-			
+			cleanProspectPath = Paths.get("prospects_clean.csv");
+			Files.createFile(cleanProspectPath);
+			cleanProspectFile = cleanProspectPath.toFile();
+						
 			BufferedReader in = new BufferedReader
-							   (new FileReader(cleanProspectFile));
-
+							   (new FileReader(prospectFile));
+			
+			PrintWriter out =   new PrintWriter
+			 		 		   (new BufferedWriter
+			 		 		   (new FileWriter(cleanProspectFile, true)));
+			
+			String readLine = in.readLine();
+			StringBuilder b = new StringBuilder(readLine);
+			
+			while (readLine != null)
+			{
+				//read
+				String[] fields = new String[2];
+				fields = readLine.split(comma);
+				String firstName = fields[0];
+				String lastName = fields[1];
+				String email = fields[2];
+				
+				//write
+				firstName = firstName.trim(); 
+				firstName = firstName.toLowerCase();		
+				firstName = firstName.replaceFirst(alphabetLower, alphabetUpper); //use substring
+				
+				lastName = lastName.trim();
+				lastName = lastName.replaceFirst(alphabetLower, alphabetUpper); //use substring
+				
+				
+				email = email.trim();
+				
+				//b.deleteCharAt(firstName.indexOf(0));
+				//display
+				out.println(firstName + comma + lastName + comma + email);
+				readLine = in.readLine();
+			}
+			out.close();
 			in.close();
 			
-			PrintWriter out = new PrintWriter
-							 (new BufferedWriter
-							 (new FileWriter(cleanProspectFile, true)));
-			
-			StringBuilder sb = new StringBuilder();
-			
-			for (int i = 1; i > 25; i++)
-			{
-				String line = in.readLine();
-				if (line != null)
-				{
-					line.replaceAll(alphabetUpper, alphabetLower);
-				}
-				else
-				{
-					break;
-				}
-			}
-
-			out.close();
-			
-			//output
+			//console output
 			System.out.println("File Cleaner");
 			System.out.println();
 			
@@ -80,8 +88,6 @@ public class FileCleanerApp
 			exception2.printStackTrace();
 		}
 	}
-	//TODO change String data with ch.14
+	//TODO change String data with ch.13
 		// https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html
-		// https://stackoverflow.com/questions/17575840/better-way-to-generate-array-of-all-letters-in-the-alphabet
-		// https://www.javatpoint.com/java-string-replaceall
 }
