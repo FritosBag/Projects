@@ -37,7 +37,6 @@ public class FileCleanerApp
 			 		 		   (new FileWriter(cleanProspectFile, true)));
 			
 			String readLine = in.readLine();
-			StringBuilder b = new StringBuilder(readLine);
 			
 			while (readLine != null)
 			{
@@ -47,17 +46,24 @@ public class FileCleanerApp
 				String firstName = fields[0];
 				String lastName = fields[1];
 				String email = fields[2];
+				String firstSub = "";
+				String lastSub = "";
+				StringBuilder b1 = new StringBuilder(firstName);
+				StringBuilder b2 = new StringBuilder(lastName);
 				
 				//write
 				firstName = firstName.trim(); 
-				firstName = firstName.toLowerCase();		
-				firstName = firstName.replaceFirst(alphabetLower, alphabetUpper); //use substring
+				firstName = firstName.toLowerCase();
+				firstSub = b1.substring(0, 1);
+				firstSub = firstSub.toUpperCase();
 				
 				lastName = lastName.trim();
-				lastName = lastName.replaceFirst(alphabetLower, alphabetUpper); //use substring
-				
+				lastName = lastName.toLowerCase();
+				lastSub = b2.substring(0, 1);
+				lastSub = lastSub.toUpperCase();
 				
 				email = email.trim();
+				email = email.toLowerCase();
 				
 				//b.deleteCharAt(firstName.indexOf(0));
 				//display
