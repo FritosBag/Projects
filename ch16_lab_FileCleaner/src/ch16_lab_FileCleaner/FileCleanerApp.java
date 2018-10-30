@@ -6,25 +6,17 @@ import java.nio.file.*;
 public class FileCleanerApp
 {
 	public static void main(String[] args)
-	{							
+	{
 		Path prospectPath;
 		File prospectFile;
 		Path cleanProspectPath;
 		File cleanProspectFile;
-		String comma = ",";
-		
-		String alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String alphabetLower = "abcdefghijklmnopqrstuvwxyz";
-		
+				
 		try
 		{
 			prospectPath = Paths.get("prospects.csv");
 			prospectFile = prospectPath.toFile();
 			
-			if (Files.notExists(prospectPath))
-			{
-				throw new FileNotFoundException();
-			}
 			cleanProspectPath = Paths.get("prospects_clean.csv");
 			Files.createFile(cleanProspectPath);
 			cleanProspectFile = cleanProspectPath.toFile();
@@ -37,39 +29,47 @@ public class FileCleanerApp
 			 		 		   (new FileWriter(cleanProspectFile, true)));
 			
 			String readLine = in.readLine();
-			
-			while (readLine != null)
+			do
 			{
-				//read
-				String[] fields = new String[2];
-				fields = readLine.split(comma);
-				String firstName = fields[0];
-				String lastName = fields[1];
-				String email = fields[2];
+				//Split and trim
 				String firstSub = "";
 				String lastSub = "";
+				String comma = ",";
+				String[] fields = new String[2];
+				fields = readLine.split(comma);
+				String firstName = fields[0].trim();
+				String lastName = fields[1].trim();
+				String email = fields[2].trim();
+
+				//Write
 				StringBuilder b1 = new StringBuilder(firstName);
-				StringBuilder b2 = new StringBuilder(lastName);
-				
-				//write
-				firstName = firstName.trim(); 
 				firstName = firstName.toLowerCase();
 				firstSub = b1.substring(0, 1);
 				firstSub = firstSub.toUpperCase();
+				firstName = firstSub + firstName;
 				
-				lastName = lastName.trim();
+				StringBuilder b2 = new StringBuilder(lastName);
 				lastName = lastName.toLowerCase();
 				lastSub = b2.substring(0, 1);
 				lastSub = lastSub.toUpperCase();
+				lastName = lastSub + lastName;
 				
-				email = email.trim();
 				email = email.toLowerCase();
+				email = email.replaceFirst("email", "Email");
 				
-				//b.deleteCharAt(firstName.indexOf(0));
-				//display
-				out.println(firstName + comma + lastName + comma + email);
+				StringBuilder b3 = new StringBuilder(firstName);
+				b3.deleteCharAt(1);
+				firstName = b3.toString();
+				
+				StringBuilder b4 = new StringBuilder(lastName);
+				b4.deleteCharAt(1);
+				lastName = b4.toString();
+				
+				//Display
+				out.println(String.join(comma, firstName, lastName, email));
 				readLine = in.readLine();
 			}
+			while (readLine != null);
 			out.close();
 			in.close();
 			
@@ -86,14 +86,10 @@ public class FileCleanerApp
 		catch (FileNotFoundException exception1)
 		{
 			System.out.println("File could not be found");
-			exception1.printStackTrace();
 		}
 		catch (IOException exception2)
 		{
-			System.out.println("File already exists");
-			exception2.printStackTrace();
+			System.out.println("File already exists/could not be read");
 		}
 	}
-	//TODO change String data with ch.13
-		// https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html
 }
