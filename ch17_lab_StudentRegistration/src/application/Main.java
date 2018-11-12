@@ -13,6 +13,7 @@ public class Main extends Application
 	TextField lastNameField;
 	TextField birthField;
 	TextField passwordField;
+	Node message;
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -73,34 +74,23 @@ public class Main extends Application
 	}
 	
 	private void registerButtonClicked(GridPane grid, Scene scene)
-	{
-		try
-		{			
-			if (firstNameField.getText().equals("") || lastNameField.getText().equals("") || birthField.getText().equals(""))
-			{
-				throw new Exception();
-			}
-			else
-			{
-				Node message = new Label("Welcome " + firstNameField.getText() + " " + lastNameField.getText() + "!");
-				grid.add(message, 0, 4);
-			}
-			int check = 0;
-		}
-		catch (Exception e)
-		{
-			firstNameField.setText("");
-			lastNameField.setText("");
-			birthField.setText("");
-			Node message = new Label("Please enter first and last name and year of birth");
-			grid.add(message, 0, 4);
-			int check = 1;
-		}
+	{		
+		String messageText;
 		
-		if (check = 1)
+		grid.getChildren().remove(message);
+		
+		if (firstNameField.getText().equals("") || lastNameField.getText().equals("") || birthField.getText().equals(""))
 		{
-			
+			passwordField.setText("");
+			messageText = "Please enter first and last name and year of birth";
 		}
+		else
+		{
+			passwordField.setText(firstNameField.getText() + "*" + birthField.getText());
+			messageText = "Welcome " + firstNameField.getText() + " " + lastNameField.getText() + "!";
+		}
+		message = new Label(messageText);
+		grid.add(message, 0, 4);
 	}
 	
 	private void exitButtonClicked()
@@ -114,5 +104,5 @@ public class Main extends Application
 	}
 	
 	//TODO adjust GridPane formatting
-	//TODO check
+	//TODO something else maybe
 }
