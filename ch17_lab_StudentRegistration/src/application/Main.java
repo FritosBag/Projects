@@ -82,7 +82,7 @@ public class Main extends Application
 		if (firstNameField.getText().equals("") || lastNameField.getText().equals("") || birthField.getText().equals(""))
 		{
 			passwordField.setText("");
-			messageText = "Please enter first and last name and year of birth";
+			messageText = "Please enter in all fields";
 		}
 		else
 		{
@@ -102,7 +102,4 @@ public class Main extends Application
 	{
 		launch(args);
 	}
-	
-	//TODO adjust GridPane formatting
-	//TODO something else maybe
 }
