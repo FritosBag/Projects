@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.*;
 import javafx.geometry.*;
 import javafx.stage.*;
@@ -23,7 +23,7 @@ public class Main extends Application
 		{
 			primaryStage.setTitle("Student Registration");
 			GridPane grid = new GridPane();
-			Scene scene = new Scene(grid, 400, 220);
+			Scene scene = new Scene(grid, 460, 220);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			grid.setAlignment(Pos.TOP_LEFT);
@@ -32,7 +32,7 @@ public class Main extends Application
 			grid.setVgap(10);
 			for (int x = 0; x < 1; x++)
 			{
-				ColumnConstraints col = new ColumnConstraints(100, 250, 1000);
+				ColumnConstraints col = new ColumnConstraints(260, 260, 1000);
 				grid.getColumnConstraints().add(col);
 			}
 			
@@ -77,7 +77,7 @@ public class Main extends Application
 	{		
 		String messageText = null;
 		Boolean check = null;
-				
+		
 		if (firstNameField.getText().trim().equals("") || lastNameField.getText().trim().equals("") || birthField.getText().trim().equals(""))
 		{
 			passwordField.setText("");
@@ -112,7 +112,6 @@ public class Main extends Application
 				alert.setHeaderText("Data Storage Error");
 				alert.setContentText("Unable to add student to the database");
 				alert.showAndWait();
-				System.exit(0);
 			}
 		}
 		message.setText(messageText);
@@ -136,5 +135,4 @@ public class Main extends Application
 	{
 		launch(args);
 	}
-	//TODO error message width formatting
 }
