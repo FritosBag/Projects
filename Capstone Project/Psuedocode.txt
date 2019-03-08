@@ -1,0 +1,77 @@
+//Maybes
+log user input
+
+//Python Web Crawler (Either in functional or OO)
+crawler script (Either ran beforehand or during the application) Primary goal is to retrieve web URLs according to user input (search engine)
+data check (if/else/try/catch, attempts to catch any bad data that the script missed)
+send to DB (couchDB?)
+
+//Java End Application
+Imports
+-
+-
+-
+-
+
+Global declares
+-
+-
+-
+-
+
+public class
+{
+	public void start(primaryStage)
+	{
+		grid declare & constraints
+		- primaryStage.setTitle();
+		- GridPane grid = new GridPane();
+		- Scene initialScene = new Scene();
+		
+		- setAlign();
+		- setPadding();
+		- setHGap();
+		- setVGap();
+		
+		Initial labels and buttons
+		- Search label/button
+		- Clear label/button
+		
+		ButtonBox
+		- primaryStage.setScene(initialScene);
+		- primaryStage.show();
+		
+		result display (new resultScene) //displays results from user search (links)
+		{
+			- Scene resultScene = new Scene();
+			
+			Labels and Buttons
+			- results textbox (might be written in html)
+			- remove search label/button
+			- back arrow button (top left)
+			
+			- primaryStage.setScene(resultScene);
+			- primaryStage.show();
+		}
+	}
+	
+	private void searchClicked()
+	{
+		try
+		{
+			Input check if/else structure
+		
+		}
+		catch
+		{
+			clear fields
+			possible app restart
+			
+		}
+	}
+	
+	private void clearClicked()
+	{
+		clear fields
+	}
+}
