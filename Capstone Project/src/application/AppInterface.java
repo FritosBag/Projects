@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 public class AppInterface extends Application
 {
 	//Global declares
-	
+	@Override
 	public void start(Stage primaryStage)
 	{
 		//grid declare & constraints
@@ -50,9 +50,12 @@ public class AppInterface extends Application
 		//remove search label/button
 		//back arrow button (top left)
 		
+		
+		
 		try
 		{
-			//Input check if/else structure	
+			//Input check if/else structure
+			//MongoDB statements probably
 		}
 		catch(Exception e)//temp exception
 		{
