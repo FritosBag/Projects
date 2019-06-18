@@ -1,4 +1,3 @@
-#This file will not compile, it is used only for reference
 import scrapy
 
 
